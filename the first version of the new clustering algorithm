@@ -1,0 +1,88 @@
+#use the function called Rn in the file named compute distance-corellation point to point
+k_means.new.2<-function(datas,k,n)
+{
+  dist_r<-function(x,y,n)
+  {
+    dist_r<-1-Rn(x,y,n)
+  }
+  
+  a<-nrow(datas)
+  d<-ncol(datas)
+  b<-sample(1:a,size = k)
+  x<-datas
+  C<-matrix(nrow=a,ncol=k)
+  c<-matrix(nrow=k,ncol=d)
+  note<-1:a
+  
+  z<-1:k
+  for (i in z)
+  {
+    u<-b[i] 
+    c[i,]<- as.matrix(datas[u,])
+  }
+  
+  z<-1:a
+  for (i in z)
+  {
+    u=dist_r(x[i,],c[1,],d)
+    m=1
+    y<-2:k
+    for (j in y)
+    {
+      v=dist_r(x[i,],c[j,],d)
+      if(v<u)
+      {
+        u<-v
+        m=j
+      }
+      
+    }
+    note[i]<-m
+  }
+  
+  s<-1:n
+  for(ti in s)
+  { 
+    #E<-0
+    z<-1:k
+    for (i in z)
+    {
+      y<-1:a
+      g=0
+      t=0
+      for(j in y)
+      {
+        if(note[j]==i)
+        {
+          g=g+datas[j,]
+          t=t+1
+        }
+      }
+      c[i,]<-as.matrix(g/t)
+    }
+    
+    z<-1:a
+    for (i in z)
+    {
+      u=dist_r(x[i,],c[1,],d)
+      m=1
+      y<-2:k
+      for (j in y)
+      {
+        v=dist_r(x[i,],c[j,],d)
+        if(v<u)
+        {
+          u<-v
+          m=j
+        }
+        
+      }
+      note[i]<-m
+    }
+    
+    
+  }
+  
+  return(note)
+  
+}
