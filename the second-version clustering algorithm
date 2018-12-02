@@ -1,0 +1,96 @@
+k_means.new.4<-function(datas,k,n)
+{
+  #initialize the parameters
+  a<-nrow(datas)
+  b<-ncol(datas)
+  x<-numeric(a)
+  y<-numeric(k)
+  cal_cluseters<-function(k,x)
+  {
+    y<-numeric(k)
+    for(i in m)
+    {
+      p=x[i]
+      y[p]=y[p]+1
+    }
+    return(y)
+  }
+  
+  cal_max_clu<-function(z,n)
+  {
+    maxs<-max(z)
+    for(i in (1:n))
+    {
+      if(z[i]==maxs)
+      {
+        max_clu<-i
+      }
+    }
+    return(max_clu)
+  }
+  
+  m<-1:a
+  for(i in m)
+  {
+    x[i]<-sample(1:k,size=1)
+  }
+  
+  l<-1:n
+  for(ti in l)
+  {
+    for(i in m)
+    {
+      y<-cal_cluseters(k,x)
+      
+      t<-x[i]
+      z<-numeric(k)
+      for(j in (1:k))
+      {
+        if(j==t)
+        {
+          A<-matrix(nrow=y[t],ncol=b)
+          v=1
+          for(h in m)
+          {
+            if(t == x[h])
+            {
+              A[v,]=datas[h,]
+              if(h==i)
+              {
+                vi<-v
+              }
+              v=v+1
+            }
+          }
+          A_minus<-matrix(nrow=y[t]-1,ncol=b)
+          A_minus<-A[-vi,]
+          At<-t(A_minus)
+          z[j]<-Rn2_pc_xy(datas[i,],At)
+        }
+        else
+        {
+          A<-matrix(nrow=y[j],ncol=b)
+          v=1
+          for(h in m)
+          {
+            if(j == x[h])
+            {
+              A[v,]=datas[h,]
+              v=v+1
+            }
+          }
+        }
+        At<-t(A)
+        z[j]<-Rn2_pc_xy(datas[i,],At)
+      }
+      
+      
+      w<-cal_max_clu(z,k)
+      x[i]<-w
+      
+    }
+  }
+  
+  return(x)
+  
+}
