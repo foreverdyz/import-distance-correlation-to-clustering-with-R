@@ -1,0 +1,105 @@
+Rn2_pc_xy<-function(x,y)
+{
+  n<-length(x)
+  p<-nrow(y)
+  q<-ncol(y)
+  A<-matrix(nrow=n,ncol=n)
+  a<-matrix(nrow=n,ncol=n)
+  ak_<-numeric(n)
+  a_l<-numeric(n)
+  B<-matrix(nrow=n,ncol=n)
+  b<-matrix(nrow=n,ncol=n)
+  bk_<-numeric(n)
+  b_l<-numeric(n)
+  
+  for(i in (1:n))
+  {
+    for(j in (1:n))
+    {
+      a[i,j]<-abs(x[i]-x[j])
+    }
+  }
+  
+  for(i in (1:n))
+  {
+    ak_[i]<-mean(a[i,])
+  }
+  
+  for(i in (1:n))
+  {
+    a_l[i]<-mean(a[,i])
+  }
+  
+  a_ave<-mean(a)
+  
+  for(i in (1:n))
+  {
+    for(j in (1:n))
+    {
+      A[i,j]<-a[i,j]-ak_[i]-a_l[j]+a_ave
+    }
+  }
+  
+  for(i in (1:n))
+  {
+    for(j in (1:n))
+    {
+      b[i,j]<-sum(abs(y[i,]-y[j,]))
+    }
+  }
+  
+  for(i in (1:n))
+  {
+    bk_[i]<-mean(b[i,])
+  }
+  
+  for(i in (1:n))
+  {
+    b_l[i]<-mean(b[,i])
+  }
+  
+  b_ave<-mean(b)
+  
+  for(i in (1:n))
+  {
+    for(j in (1:n))
+    {
+      B[i,j]<-b[i,j]-bk_[i]-b_l[j]+b_ave
+    }
+  }
+  
+  Vn.xy<-0
+  for(i in (1:n))
+  {
+    for(i in (1:n))
+    {
+      Vn.xy<-Vn.xy+A[i,j]*B[i,j]
+    }
+  }
+  Vn.xy<-Vn.xy/(n**2)
+  
+  Vn.xx<-0
+  for(i in (1:n))
+  {
+    for(i in (1:n))
+    {
+      Vn.xx<-Vn.xx+A[i,j]*A[i,j]
+    }
+  }
+  Vn.xx<-Vn.xx/(n**2)
+  
+  Vn.yy<-0
+  for(i in (1:n))
+  {
+    for(i in (1:n))
+    {
+      Vn.yy<-Vn.yy+B[i,j]*B[i,j]
+    }
+  }
+  Vn.yy<-Vn.yy/(n**2)
+  
+  Rn2.xy<-Vn.xy/sqrt(Vn.xx*Vn.yy)
+  
+  return(Rn2.xy)
+  
+}
