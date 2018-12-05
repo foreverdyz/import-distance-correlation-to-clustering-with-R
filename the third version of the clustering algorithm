@@ -1,0 +1,33 @@
+k_means.new.5<-function(datas,k,n,gama)#k是超参数，用于k近邻,n是迭代次数
+{
+  a<-nrow(datas)#样本数
+  b<-ncol(datas)#特征数
+  name<-1:a
+  u<-datas#中心点矩阵
+  u0<-datas#备用中心点矩阵
+  M<-max_M(datas,a)
+  w<-ini_w(datas,k,a,b)
+  model<-numeric(a)#某一点在不同类的模型值
+  sum_clu<-a#类总数
+  for(ti in (1:n))
+  {
+    for(i in (1:a))
+    {
+      model[name[i]]<-sum_f_all(datas,u,b,a)+gama*regular(u,a,M)
+      for(j in (1:sum_clu))
+      {
+        model[j]<-compute_goal(datas,i,name,j,gama,u,M,a,b)
+      }
+      k_new<-order(model)[1]
+      if(k_new != name[i])
+      {
+        u<-updata_center(datas,name,i,k_new,u,a)
+        u0<-u
+        name[i]<-k_new
+      }
+      name<-stat_distr_clusters(name,a)
+      sum_clu<-stat_cluster(name,a)
+    }
+  }
+  return(name)
+}
