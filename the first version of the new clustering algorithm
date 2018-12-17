@@ -1,5 +1,5 @@
 #use the function called Rn in the file named compute distance-correlation point to point
-k_means.new.2<-function(datas,k,n)
+k_means.new.1<-function(datas,k,n)
 {
   dist_r<-function(x,y,n)
   {
