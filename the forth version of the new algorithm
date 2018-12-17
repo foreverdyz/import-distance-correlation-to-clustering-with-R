@@ -1,0 +1,94 @@
+k_means.new.4<-function(datas,k,n)
+{
+  a<-nrow(datas)
+  b<-ncol(datas)
+  x<-numeric(a)
+  y<-numeric(k)
+  cal_cluseters<-function(k,x)
+  {
+    y<-numeric(k)
+    for(i in m)
+    {
+      p=x[i]
+      y[p]=y[p]+1
+    }
+    return(y)
+  }
+  w<-matrix(nrow=a,ncol=a)
+  for(i in (1:a))
+  {
+    for(j in (i:a))
+    {
+      w[i,j]<-(Rn(datas[i,],datas[j,],b))
+      w[j,i]<-w[i,j]
+    }
+  }
+  
+  m<-1:a
+  for(i in m)
+  {
+    x[i]<-sample(1:k,size=1)
+  }
+  
+  l<-1:n
+  for(ti in l)
+  {
+    for(i in m)
+    {
+      y<-cal_cluseters(k,x)
+      t<-x[i]
+      z<-numeric(k)
+      for(j in (1:k))
+      {
+        if(t == j)
+        {
+          for(h1 in (1:(a-1)))
+          {
+            if(x[h1]==j)
+            {
+              for(h2 in ((h1+1):a))
+              {
+                if(x[h2]==j)
+                {
+                  z[j]<-z[j]+w[h1,h2]
+                }
+              }
+            }
+          }
+          z[j]<-(2*z[j])/(y[j]*(y[j]-1))
+        }
+        if(t != j)
+        {
+          for(h1 in (1:(a-1)))
+          {
+            if(x[h1]==j)
+            {
+              for(h2 in ((h1+1):a))
+              {
+                if(x[h2]==j)
+                {
+                  z[j]<-z[j]+w[h1,h2]
+                }
+              }
+            }
+          }
+          for(h1 in (1:a))
+          {
+            if(x[h1]==j)
+            {
+              z[j]<-z[j]+w[h1,i]
+            }
+          }
+          z[j]<-(2*z[j])/(y[j]*(y[j]+1))
+        }
+      }
+      k_new<-order(z)[k]
+      if(k_new != t)
+      {
+        x[i]<-k_new
+      }
+      
+    }
+  }
+ return(x)
+}
