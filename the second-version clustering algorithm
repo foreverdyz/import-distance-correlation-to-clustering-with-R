@@ -1,4 +1,4 @@
-k_means.new.4<-function(datas,k,n)
+k_means.new.2<-function(datas,k,n)
 {
   #initialize the parameters
   a<-nrow(datas)
