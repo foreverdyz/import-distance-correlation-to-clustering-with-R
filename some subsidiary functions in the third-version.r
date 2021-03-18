@@ -166,7 +166,7 @@ stat_distr_clusters<-function(name,n)
   return(name)
 }
 
-stat_cluster<-function(name,n)#统计一共有几类
+stat_cluster<-function(name,n)#count how many clusters at all
 {
   si<-numeric(n)
   t<-0
@@ -214,7 +214,7 @@ max_M<-function(data,n)
 }
 
 #the eighth one just judge the point's k nears
-k_near<-function(x,i,k)#x是一列数，i是想判断的数的位置，k超参数
+k_near<-function(x,i,k)#x is a vecotr, i is the position
 {
   y<-order(x)
   z<-y[1:k]
