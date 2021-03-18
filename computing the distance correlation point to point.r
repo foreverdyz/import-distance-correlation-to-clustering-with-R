@@ -2,7 +2,7 @@
 Vn<-function(x,y,n)
 {
   x<-as.matrix(x)
-  y<-as.matrix(y)#确保数据格式正确
+  y<-as.matrix(y)
   a=matrix(nrow=n,ncol=n)
   b=matrix(nrow=n,ncol=n)
   A=matrix(nrow=n,ncol=n)
