@@ -1,3 +1,4 @@
+# It is the third version of the distance correlation clustering algorithm
 k_means.new.3<-function(datas,k,n,gama)
 {
   a<-nrow(datas)
