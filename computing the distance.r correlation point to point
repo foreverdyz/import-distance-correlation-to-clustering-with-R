@@ -1,4 +1,4 @@
-this code is same to the second-version and we need it there
+#this code is same to the second-version and we need it there
 Vn<-function(x,y,n)
 {
   x<-as.matrix(x)
